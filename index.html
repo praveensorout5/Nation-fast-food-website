@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nation Fast Food Cafe | Deliciously Different</title>
+  <meta name="description" content="Nation Fast Food Cafe in Kailash Nagar, Palwal — delicious fast food, burgers, crispy chicken, fries, snacks and more.">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="nav-logo">
+        <img src="public/images/poster.jpg" alt="Nation Food Cafe Logo">
+        <span>NATION CAFE</span>
+      </div>
+      <div class="nav-links">
+        <a href="#home">HOME</a>
+        <a href="#menu">MENU</a>
+        <a href="#about">ABOUT</a>
+        <a href="#order">ORDER</a>
+        <a href="#tracking">TRACK</a>
+        <a href="#contact">CONTACT</a>
+      </div>
+      <div class="nav-right">
+        <div class="status-badge pulsate">OPENING SOON</div>
+        <div class="cart-icon-wrapper" onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </div>
+        <div class="menu-toggle">☰</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Floating Cart Sidebar -->
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Order</h3>
+      <button class="close-btn" onclick="toggleCart()">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <!-- Items will be injected here -->
+      <div class="empty-cart">Your cart is empty</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cart-total-price">₹0</span>
+      </div>
+      <a href="#order" class="btn btn-primary btn-block" onclick="toggleCart()">PROCEED TO CHECKOUT</a>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+  <!-- Hero Section -->
+  <header id="home" class="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <div class="status-badge pulsate" style="margin-bottom: 20px;">Coming Soon to Kailash Nagar</div>
+        <h1 class="hero-title">CRAVE IT?<br><span>GET IT HERE!</span></h1>
+        <h2 class="hero-subtitle">Deliciously Different!</h2>
+        <p class="hero-desc">Freshly prepared fast food, bold flavours and delicious moments — coming soon to Kailash Nagar, Palwal.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary btn-lg"><i class="fas fa-hamburger"></i> EXPLORE MENU</a>
+          <a href="#order" class="btn btn-outline btn-lg"><i class="fas fa-motorcycle"></i> ORDER ONLINE</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-img-wrapper">
+          <img src="public/images/logo.jpg" alt="Promotional Fast Food Background">
+        </div>
+        <div class="floating-badge badge-1"><i class="fas fa-star text-yellow"></i> 100% Fresh</div>
+        <div class="floating-badge badge-2"><i class="fas fa-fire text-orange"></i> Best Taste</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Featured Slider Section -->
+  <section class="section bg-navy">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title text-yellow">FEATURED DELIGHTS</h2>
+        <p class="section-desc">Swipe through our most loved items!</p>
+      </div>
+      <div class="featured-slider">
+        <div class="slider-track" id="featured-track">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="section bg-charcoal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">THE TASTE YOU'LL COME BACK FOR</h2>
+        <p class="section-desc">Explore our delicious fast food options. Everything is freshly prepared with quality ingredients.</p>
+      </div>
+      
+      <div class="menu-filters">
+        <button class="filter-btn active" data-cat="All">All</button>
+        <button class="filter-btn" data-cat="Burgers">Burgers</button>
+        <button class="filter-btn" data-cat="Fried Chicken">Fried Chicken</button>
+        <button class="filter-btn" data-cat="Fries">Fries</button>
+        <button class="filter-btn" data-cat="Wraps">Wraps</button>
+        <button class="filter-btn" data-cat="Beverages">Beverages</button>
+        <button class="filter-btn" data-cat="Indian Snacks">Indian Snacks</button>
+      </div>
+
+      <div class="menu-grid" id="menu-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Order & Checkout Section -->
+  <section id="order" class="section bg-navy">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title text-orange">COMPLETE YOUR ORDER</h2>
+        <p class="section-desc">Fill out your details to place the order.</p>
+      </div>
+
+      <div class="checkout-grid">
+        <div class="checkout-form-box">
+          <h3>Delivery Details</h3>
+          <form id="checkout-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="order-name" class="form-control" required placeholder="Enter your name">
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="order-phone" class="form-control" required placeholder="Enter phone number">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Delivery Address</label>
+              <textarea id="order-address" class="form-control" rows="3" required placeholder="Enter complete address"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Payment Method</label>
+              <select id="order-payment" class="form-control" required>
+                <option value="cod">Cash on Delivery (COD)</option>
+                <option value="upi">UPI / Online Payment</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="place-order-btn">PLACE ORDER NOW</button>
+          </form>
+          <div id="order-success-msg" class="success-message" style="display: none;">
+            <i class="fas fa-check-circle"></i>
+            <h4>Order Placed Successfully!</h4>
+            <p>Your Tracking ID is: <strong id="generated-track-id" class="text-yellow"></strong></p>
+            <p style="font-size: 0.9rem; margin-top: 10px;">Use the tracking section below to see your order status.</p>
+          </div>
+        </div>
+        
+        <div class="checkout-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items" class="checkout-items">
+            <!-- Items injected by JS -->
+          </div>
+          <div class="checkout-totals">
+            <div class="total-row">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">₹0</span>
+            </div>
+            <div class="total-row">
+              <span>Delivery Fee</span>
+              <span>₹40</span>
+            </div>
+            <div class="total-row grand-total">
+              <span>Total to Pay</span>
+              <span id="checkout-grand-total" class="text-green">₹0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Tracking Section -->
+  <section id="tracking" class="section bg-charcoal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title text-yellow">TRACK YOUR ORDER</h2>
+        <p class="section-desc">Enter your tracking ID to see live updates.</p>
+      </div>
+      
+      <div class="tracking-box">
+        <div class="tracking-input-group">
+          <input type="text" id="track-id-input" class="form-control" placeholder="Enter Order/Tracking ID (e.g. NATION-1234)">
+          <button class="btn btn-primary" onclick="trackOrder()">Track</button>
+        </div>
+        
+        <div class="tracking-result" id="tracking-result" style="display: none;">
+          <h4 class="text-orange" style="margin-bottom: 20px;">Order Status: <span id="track-status-text" class="text-white">Processing</span></h4>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="tracking-progress"></div>
+          </div>
+          <div class="progress-labels">
+            <span class="active">Received</span>
+            <span id="label-preparing">Preparing</span>
+            <span id="label-ready">Out for Delivery</span>
+            <span id="label-delivered">Delivered</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section bg-navy">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <h2 class="section-title text-orange" style="text-align: left;">ABOUT US</h2>
+          <h3 style="color:var(--yellow); margin-bottom: 20px; font-size: 1.8rem;">Fast Food, Fresh Preparation, Great Taste</h3>
+          <p style="color:var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">
+            At Nation Fast Food Cafe, we believe that fast food doesn't mean compromising on quality. 
+            We use fresh ingredients to prepare delicious, affordable, and mouth-watering meals that you'll love.
+          </p>
+          <div class="features-list">
+            <div class="feature-item"><i class="fas fa-check-circle text-green"></i> 100% fresh ingredients</div>
+            <div class="feature-item"><i class="fas fa-check-circle text-green"></i> Bold & delicious flavors</div>
+            <div class="feature-item"><i class="fas fa-check-circle text-green"></i> FSSAI Registered Hygiene</div>
+            <div class="feature-item"><i class="fas fa-check-circle text-green"></i> Friendly customer experience</div>
+          </div>
+        </div>
+        <div class="about-image">
+          <div class="image-box">
+             <i class="fas fa-store" style="font-size: 80px; color: var(--charcoal);"></i>
+          </div>
+          <div class="team-badge">
+            <strong>15+</strong><br><span>Team Members</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FSSAI Section -->
+  <section id="fssai" class="section bg-charcoal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title text-green">FOOD SAFETY & REGISTRATION</h2>
+      </div>
+      
+      <div class="fssai-box">
+        <div class="fssai-details">
+          <div class="fssai-row">
+            <span style="color:var(--text-muted)">Registration Number:</span>
+            <strong>20826014000399</strong>
+          </div>
+          <div class="fssai-row">
+            <span style="color:var(--text-muted)">Business Name:</span>
+            <strong>Nation food cafe</strong>
+          </div>
+          <div class="fssai-row">
+            <span style="color:var(--text-muted)">Location:</span>
+            <strong>Palwal, Haryana</strong>
+          </div>
+          <div class="fssai-row" style="border:none">
+            <span style="color:var(--text-muted)">Status:</span>
+            <strong class="text-green"><i class="fas fa-certificate"></i> Registration Certificate issued</strong>
+          </div>
+          <div style="margin-top: 30px;">
+            <a href="public/fssai.pdf" target="_blank" class="btn btn-outline" style="border-color:var(--green); color:var(--green)">
+              <i class="fas fa-file-pdf"></i> VIEW FSSAI CERTIFICATE
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section bg-navy">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title text-yellow">COME VISIT US</h2>
+      </div>
+      
+      <div class="contact-grid">
+        <div class="contact-info-cards">
+          <div class="contact-item card-hover">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h3>Address</h3>
+              <p>Gali No. 3, Near Vikash Green Vatika, Kailash Nagar, Palwal, Haryana – 121102</p>
+            </div>
+          </div>
+          <div class="contact-item card-hover">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <h3>Phone</h3>
+              <p>971 700 4451<br>905 347 4700</p>
+            </div>
+          </div>
+          <div class="contact-item card-hover">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h3>Email</h3>
+              <p>nationfoodcafe1311@gmail.com</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder">
+          <i class="fas fa-map" style="font-size: 50px; margin-bottom: 15px;"></i>
+          <p>Google Maps Location (Link to be provided)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feedback Section -->
+  <section id="feedback" class="section bg-charcoal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">WHAT OUR CUSTOMERS SAY</h2>
+      </div>
+      
+      <div class="feedback-box">
+        <form id="feedback-form">
+          <div class="stars">
+            <span class="star" data-value="1"><i class="fas fa-star"></i></span>
+            <span class="star" data-value="2"><i class="fas fa-star"></i></span>
+            <span class="star" data-value="3"><i class="fas fa-star"></i></span>
+            <span class="star" data-value="4"><i class="fas fa-star"></i></span>
+            <span class="star" data-value="5"><i class="fas fa-star"></i></span>
+          </div>
+          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1 1 300px;">
+              <input type="text" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group" style="flex: 1 1 300px;">
+              <input type="email" class="form-control" placeholder="Your Email (Optional)">
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" rows="4" placeholder="Tell us about your experience..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">SUBMIT FEEDBACK</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 style="color:var(--orange); font-size:1.5rem; margin-bottom: 10px;">NATION FAST FOOD CAFE</h3>
+          <p style="color:var(--yellow); font-style:italic; margin-bottom: 20px;">TASTE THE JOY</p>
+          <div class="status-badge">OPENING SOON</div>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#order">Order Online</a></li>
+            <li><a href="#tracking">Track Order</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>External</h4>
+          <ul>
+            <li><a href="#" style="color:#E23744; font-weight:bold;"><i class="fas fa-utensils"></i> Order with Zomato</a></li>
+            <li><a href="public/fssai.pdf" target="_blank">FSSAI Certificate</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 Nation Fast Food Cafe. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
